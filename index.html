@@ -15,7 +15,10 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            flex-direction: column;
             min-height: 100vh;
+
+
         }
         input[type="text"] {
             background: #1a1a1a;
@@ -65,22 +68,34 @@
             object-fit: contain;
             border-radius: 4px;
         }
+
+        #search-div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 50px;
+        }
     </style>
 </head>
 <body>
-
-    <input id="search-input" type="text" placeholder="Search Google" style="position: absolute; top: 30%; width: 80%; max-width: 600px; padding: 10px; border-radius: 8px; border: none; font-size: 1rem;">
+    <div id="search-div">
+        <img src="https://unavatar.io/google.com?fallback=https://www.google.com/s2/favicons?sz=64&domain=google.com" alt="Google Logo" style="width: 50px; height: 50px; margin-bottom: 35px; margin-right: 10px;">
+        <input id="search-input" type="text" placeholder="Search Google" style="width: 400px; max-width: 600px; padding: 10px; margin-bottom: 40px; border-radius: 8px; border: none; font-size: 1rem;">
+    </div>
 
     <main>
         <section>
+            <input id="search-input" type="text" placeholder="Title..." style="width: 90%;padding: 10px; border-radius: 8px; border: none; font-size: 1rem;">
             <a href="https://notebooklm.google.com">NotebookLM</a>
             <a href="https://moodle.tu-darmstadt.de">Moodle</a>
         </section>
         <section>
+            <input id="search-input" type="text" placeholder="Title..." style="width: 90%;padding: 10px; border-radius: 8px; border: none; font-size: 1rem;">
             <a href="https://www.youtube.com">YouTube</a>
             <a href="https://open.spotify.com">Spotify</a>
         </section>
         <section>
+            <input id="search-input" type="text" placeholder="Title..." style="width: 90%;padding: 10px; border-radius: 8px; border: none; font-size: 1rem;">
             <a href="https://github.com">GitHub</a>
             <a href="https://gemini.google.com/">Gemini</a>
         </section>
