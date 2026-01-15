@@ -102,6 +102,44 @@
     </main>
 
     <script>
+        // Function to save a cookie
+        function setCookie(name, value, days) {
+            const date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            const expires = "expires=" + date.toUTCString();
+            document.cookie = name + "=" + encodeURIComponent(value) + ";" + expires + ";path=/";
+        }
+
+        // Function to get a cookie
+        function getCookie(name) {
+            const nameEQ = name + "=";
+            const ca = document.cookie.split(';');
+            for (let i = 0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) == 0) return decodeURIComponent(c.substring(nameEQ.length, c.length));
+            }
+            return null;
+        }
+
+        // Logic to handle saving and loading
+        document.addEventListener('DOMContentLoaded', () => {
+            const titleInputs = document.querySelectorAll('.title-input');
+
+            titleInputs.forEach(input => {
+                // 1. Load from cookies on page load
+                const savedTitle = getCookie(input.id);
+                if (savedTitle) {
+                    input.value = savedTitle;
+                }
+
+                // 2. Save to cookies when unfocused (blur)
+                input.addEventListener('blur', () => {
+                    setCookie(input.id, input.value, 365);
+                });
+            });
+        });
+
         document.querySelectorAll('section a').forEach(link => {
             const url = new URL(link.href);
             const domain = url.hostname;
