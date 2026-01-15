@@ -102,76 +102,52 @@
     </main>
 
     <script>
-        // Function to save a cookie
-        function setCookie(name, value, days) {
-            const date = new Date();
-            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-            const expires = "expires=" + date.toUTCString();
-            document.cookie = name + "=" + encodeURIComponent(value) + ";" + expires + ";path=/";
-        }
-
-        // Function to get a cookie
-        function getCookie(name) {
-            const nameEQ = name + "=";
-            const ca = document.cookie.split(';');
-            for (let i = 0; i < ca.length; i++) {
-                let c = ca[i];
-                while (c.charAt(0) == ' ') c = c.substring(1, c.length);
-                if (c.indexOf(nameEQ) == 0) return decodeURIComponent(c.substring(nameEQ.length, c.length));
-            }
-            return null;
-        }
-
-        // Logic to handle saving and loading
         document.addEventListener('DOMContentLoaded', () => {
-            const titleInputs = document.querySelectorAll('.title-input');
+    // 1. SELECT ALL TITLE INPUTS
+    const titleInputs = document.querySelectorAll('.title-input');
 
-            titleInputs.forEach(input => {
-                // 1. Load from cookies on page load
-                const savedTitle = getCookie(input.id);
-                if (savedTitle) {
-                    input.value = savedTitle;
-                }
+    titleInputs.forEach(input => {
+        // Load saved value from LocalStorage on page load
+        const savedValue = localStorage.getItem(input.id);
+        if (savedValue) {
+            input.value = savedValue;
+        }
 
-                // 2. Save to cookies when unfocused (blur)
-                input.addEventListener('blur', () => {
-                    setCookie(input.id, input.value, 365);
-                });
-            });
+        // Save value to LocalStorage when user clicks away (unfocus/blur)
+        input.addEventListener('blur', () => {
+            localStorage.setItem(input.id, input.value);
+            console.log(`Saved ${input.id}: ${input.value}`); // Helps with debugging
         });
+    });
 
-        document.querySelectorAll('section a').forEach(link => {
-            const url = new URL(link.href);
-            const domain = url.hostname;
-            
-            const wrapper = document.createElement('div');
-            wrapper.className = 'icon-wrapper';
-            
-            const img = document.createElement('img');
-            
-            // Waterfall Logic for Firefox Extension Compatibility:
-            // 1. Unavatar (Best for NotebookLM and subdomains)
-            // 2. Google S2 (Reliable fallback)
-            // 3. FontAwesome (Final safety net)
-            
-            img.src = `https://unavatar.io/${domain}?fallback=https://www.google.com/s2/favicons?sz=64&domain=${domain}`;
+    // 2. ICON WATERFALL LOGIC
+    document.querySelectorAll('section a').forEach(link => {
+        const url = new URL(link.href);
+        const domain = url.hostname;
+        const wrapper = document.createElement('div');
+        wrapper.className = 'icon-wrapper';
+        const img = document.createElement('img');
+        
+        img.src = `https://unavatar.io/${domain}?fallback=https://www.google.com/s2/favicons?sz=64&domain=${domain}`;
+        img.onerror = () => {
+            img.style.display = 'none';
+            wrapper.innerHTML = '<i class="fas fa-link"></i>';
+        };
 
-            img.onerror = () => {
-                img.style.display = 'none';
-                wrapper.innerHTML = '<i class="fas fa-link"></i>';
-            };
+        wrapper.appendChild(img);
+        link.prepend(wrapper);
+    });
 
-            wrapper.appendChild(img);
-            link.prepend(wrapper);
-        });
-
-        const searchInput = document.getElementById('search-input');
-        searchInput.addEventListener('keydown', function(event) {
-            if (event.key === 'Enter') {
-                const query = encodeURIComponent(searchInput.value);
-                window.location.href = `https://www.google.com/search?q=${query}`;
-            }
-        });
+    // 3. SEARCH BAR LOGIC
+    // Note: I used querySelector because you have multiple 'search-input' IDs
+    const mainSearch = document.querySelector('#search-div #search-input');
+    mainSearch.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+            const query = encodeURIComponent(mainSearch.value);
+            window.location.href = `https://www.google.com/search?q=${query}`;
+        }
+    });
+});
 
     </script>
 </body>
