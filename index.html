@@ -6,149 +6,34 @@
     <title>New Tab</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/1946/1946436.png" type="image/png">
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            background-color: #0d0d0d;
-            color: #e0e0e0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            min-height: 100vh;
-
-
-        }
-        input[type="text"] {
-            background: #1a1a1a;
-            color: #e0e0e0;
-            border: 1px solid #333;
-        }
-        main {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            width: 90%;
-            max-width: 1100px;
-        }
-        section {
-            background: #1a1a1a;
-            border-radius: 16px;
-            padding: 1.5rem;
-            border: 1px solid #333;
-        }
-        section a {
-            display: flex;
-            align-items: center;
-            color: #b3b3b3;
-            font-size: 1.1rem;
-            margin: 0.8rem 0;
-            padding: 0.8rem;
-            text-decoration: none;
-            border-radius: 10px;
-            transition: all 0.2s ease;
-        }
-        section a:hover {
-            background: #262626;
-            color: #00bfff;
-            transform: translateX(5px);
-        }
-        .icon-wrapper {
-            width: 24px;
-            height: 24px;
-            margin-right: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .icon-wrapper img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            border-radius: 4px;
-        }
-
-        #search-div {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 50px;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="index.js"></script>
 </head>
 <body>
+    <button id="edit" onclick="toggleEdit()">Edit</button>
+
     <div id="search-div">
-        <img src="https://unavatar.io/google.com?fallback=https://www.google.com/s2/favicons?sz=64&domain=google.com" alt="Google Logo" style="width: 50px; height: 50px; margin-bottom: 35px; margin-right: 10px;">
-        <input id="search-input" type="text" placeholder="Search Google" style="width: 400px; max-width: 600px; padding: 10px; margin-bottom: 40px; border-radius: 8px; border: none; font-size: 1rem;">
+        <img src="https://unavatar.io/google.com?fallback=https://www.google.com/s2/favicons?sz=64&domain=google.com" alt="Google Logo">
+        <input id="search-input" type="text" placeholder="Search Google">
     </div>
 
     <main>
         <section>
-            <input class="title-input" id="title-1" type="text" placeholder="Title..." style="width: 90%;padding: 10px; border-radius: 8px; border: none; font-size: 1rem;">
-            <a href="https://notebooklm.google.com">NotebookLM</a>
-            <a href="https://moodle.tu-darmstadt.de">Moodle</a>
+            <input class="title-input" id="title-${sectionCount}" type="text" placeholder="Title...">
+            <div class="link-container edit">
+                <input class="link-input" type="text" placeholder="Link URL...">
+                <input class="link-name-input" type="text" placeholder="Link Name...">
+                <button onclick="addNewLink(this.parentElement.parentElement, this.parentElement.children[0].value, this.parentElement.children[1].value)" class="add-link-confirm-button">Add</button>
+            </div>
+
+            <button class="section-delete-button edit" onclick="this.parentElement.remove()">
+                <i class="fas fa-trash"></i> Delete Section
+            </button>
         </section>
-        <section>
-            <input class="title-input" id="title-2" type="text" placeholder="Title..." style="width: 90%;padding: 10px; border-radius: 8px; border: none; font-size: 1rem;">
-            <a href="https://www.youtube.com">YouTube</a>
-            <a href="https://open.spotify.com">Spotify</a>
-        </section>
-        <section>
-            <input class="title-input" id="title-3" type="text" placeholder="Title..." style="width: 90%;padding: 10px; border-radius: 8px; border: none; font-size: 1rem;">
-            <a href="https://github.com">GitHub</a>
-            <a href="https://gemini.google.com/">Gemini</a>
-        </section>
+
+        <button id="section-add-button" class="edit">
+            <i class="fas fa-plus"></i> Add Section
+        </button>
     </main>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-    // 1. SELECT ALL TITLE INPUTS
-    const titleInputs = document.querySelectorAll('.title-input');
-
-    titleInputs.forEach(input => {
-        // Load saved value from LocalStorage on page load
-        const savedValue = localStorage.getItem(input.id);
-        if (savedValue) {
-            input.value = savedValue;
-        }
-
-        // Save value to LocalStorage when user clicks away (unfocus/blur)
-        input.addEventListener('blur', () => {
-            localStorage.setItem(input.id, input.value);
-            console.log(`Saved ${input.id}: ${input.value}`); // Helps with debugging
-        });
-    });
-
-    // 2. ICON WATERFALL LOGIC
-    document.querySelectorAll('section a').forEach(link => {
-        const url = new URL(link.href);
-        const domain = url.hostname;
-        const wrapper = document.createElement('div');
-        wrapper.className = 'icon-wrapper';
-        const img = document.createElement('img');
-        
-        img.src = `https://unavatar.io/${domain}?fallback=https://www.google.com/s2/favicons?sz=64&domain=${domain}`;
-        img.onerror = () => {
-            img.style.display = 'none';
-            wrapper.innerHTML = '<i class="fas fa-link"></i>';
-        };
-
-        wrapper.appendChild(img);
-        link.prepend(wrapper);
-    });
-
-    // 3. SEARCH BAR LOGIC
-    // Note: I used querySelector because you have multiple 'search-input' IDs
-    const mainSearch = document.querySelector('#search-div #search-input');
-    mainSearch.addEventListener('keydown', function(event) {
-        if (event.key === 'Enter') {
-            const query = encodeURIComponent(mainSearch.value);
-            window.location.href = `https://www.google.com/search?q=${query}`;
-        }
-    });
-});
-
-    </script>
 </body>
 </html>
