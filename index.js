@@ -175,14 +175,19 @@ document.addEventListener('DOMContentLoaded', () => {
     if (mainSearch) {
         mainSearch.addEventListener('keydown', (e) => {
             if (e.key === 'Enter') {
-                if (knownLinks.includes(mainSearch.value.toLowerCase())) {
-                    window.location.href = "https://www." + mainSearch.value + ".com";
-                    return;
-                } else if (mainSearch.value.toLowerCase() === "cal") {
-                    window.location.href = "https://calendar.google.com/";
-                    return;
+                if(!mainSearch.value.startsWith("!")){
+                    if (knownLinks.includes(mainSearch.value.toLowerCase())) {
+                        window.location.href = "https://www." + mainSearch.value + ".com";
+                        return;
+                    } else if (mainSearch.value.toLowerCase() === "cal") {
+                        window.location.href = "https://calendar.google.com/";
+                        return;
+                    }
+                    window.location.href = `https://www.google.com/search?q=${encodeURIComponent(mainSearch.value)}`;
+                } else {
+                    const query = mainSearch.value.slice(1).trim();
+                    window.location.href = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
                 }
-                window.location.href = `https://www.google.com/search?q=${encodeURIComponent(mainSearch.value)}`;
             }
         });
     }
@@ -213,3 +218,20 @@ const knownLinks = [
     "amazon", "ebay", "etsy", "shopify", "booking", "airbnb", "expedia", "tripadvisor", "skyscanner", "ryanair", 
     "lufthansa", "flixbus", "paypal", "revolut", "klarna", "wise", "stripe"
 ];
+
+const searchInput = document.getElementById('search-input');
+const searchDiv = document.getElementById('search-div');
+
+// Event listener for every keystroke
+searchInput.addEventListener('input', () => {
+    const query = searchInput.value.trim().toLowerCase();
+    
+    // Check if the query exists in our list
+    const isMatch = knownLinks.includes(query) || query === "cal";
+
+    if (isMatch && query.length > 0) {
+        searchDiv.classList.add('match-found');
+    } else {
+        searchDiv.classList.remove('match-found');
+    }
+});
