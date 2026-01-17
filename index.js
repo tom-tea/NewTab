@@ -175,8 +175,41 @@ document.addEventListener('DOMContentLoaded', () => {
     if (mainSearch) {
         mainSearch.addEventListener('keydown', (e) => {
             if (e.key === 'Enter') {
+                if (knownLinks.includes(mainSearch.value.toLowerCase())) {
+                    window.location.href = "https://www." + mainSearch.value + ".com";
+                    return;
+                } else if (mainSearch.value.toLowerCase() === "cal") {
+                    window.location.href = "https://calendar.google.com/";
+                    return;
+                }
                 window.location.href = `https://www.google.com/search?q=${encodeURIComponent(mainSearch.value)}`;
             }
         });
     }
 });
+
+const knownLinks = [
+    // --- Local & Academic (Germany/Europe) ---
+    "wikipedia", "moodle", "spiegel", "zeit", "tagesschau", "faz", "heise", "golem", "welt", "focus",
+    "ebay-kleinanzeigen", "mobile.de", "immobilienscout24", "otto", "zalando", "lidl", "aldi", "bahn", "db", "dhl",
+     "dict", "deepl", "dw", "zdf", "ard", "arte", "tuev", "bundesagentur", "elster", "adac",
+
+    // --- Tech & Development ---
+    "github", "gitlab", "bitbucket", "stackoverflow", "npmjs", "pypi", "docker", "vercel", "netlify", "heroku", 
+    "digitalocean", "cloudflare", "aws", "azure", "googlecloud", "codesandbox", "replit", "figma", 
+    "canva", "adobe", "medium", "dev.to", "hashnode", "w3schools", "mozilla", "mdn", "rust-lang", "python",
+
+    // --- Social & Communication ---
+    "youtube", "google", "reddit", "twitter", "x", "instagram", "linkedin", "facebook", "discord", "twitch", 
+    "whatsapp", "telegram", "messenger", "signal", "slack", "zoom", "teams", "skype", "pinterest", "tumblr", 
+    "tiktok", "snapchat", "mastodon", "threads",
+
+    // --- Tools & Productivity ---
+    "chatgpt", "openai", "gemini", "claude", "perplexity", "notion", "trello", "asana", "monday", "jira", 
+    "confluence", "dropbox", "icloud", "protonmail", "gmail", "outlook", "duckduckgo", "bing", "yahoo", 
+    "spotify", "soundcloud", "bandcamp", "vimeo", "dailymotion",
+
+    // --- Shopping & Travel ---
+    "amazon", "ebay", "etsy", "shopify", "booking", "airbnb", "expedia", "tripadvisor", "skyscanner", "ryanair", 
+    "lufthansa", "flixbus", "paypal", "revolut", "klarna", "wise", "stripe"
+];
