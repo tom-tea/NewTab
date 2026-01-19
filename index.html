@@ -20,20 +20,7 @@
         <input id="search-input" type="text" placeholder="Search Google">
     </div>
 
-    <main>
-        <section>
-            <input class="title-input" id="title-${sectionCount}" type="text" placeholder="Title...">
-            <div class="link-container edit">
-                <input class="link-input" type="text" placeholder="Link URL...">
-                <input class="link-name-input" type="text" placeholder="Link Name...">
-                <button onclick="addNewLink(this.parentElement.parentElement, this.parentElement.children[0].value, this.parentElement.children[1].value)" class="add-link-confirm-button">Add</button>
-            </div>
-
-            <button class="section-delete-button edit" onclick="this.parentElement.remove()">
-                <i class="fas fa-trash"></i> Delete Section
-            </button>
-        </section>
-
+    <main>        
         <button id="section-add-button" class="edit">
             <i class="fas fa-plus"></i> Add Section
         </button>

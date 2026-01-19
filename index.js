@@ -45,8 +45,10 @@ function loadPageState() {
         mainGrid.insertBefore(section, addButton);
     });
 
+    
     loadIcons();
-    applyEditMode(); 
+    applyEditMode();
+     
 }
 
 // --- 3. ELEMENT CREATION HELPERS ---
