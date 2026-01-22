@@ -1,0 +1,124 @@
+body {
+    margin: 0;
+    height: 100vh;
+
+    background-color: #0d0d0d;
+
+    display: grid;
+    place-items: center;
+
+    font-family: system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+#add-button {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #1e1e1e;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+#content-wrapper {
+    width: 70%;
+    
+    margin: 0;
+
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.to-do-list {
+    position: relative;
+    background: #1a1a1a;
+    padding: 15px;
+    border: 1px solid #333;
+    border-radius: 16px;
+
+    display: flex;
+    flex-direction: column;
+
+    padding-block: 15px;
+    overflow: hidden;
+
+    transition: all 1s;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+
+    padding-block: 2.5px;
+
+    transition: all .5s;
+}
+
+.item textarea {
+    width: 90%;
+    /* Let height be defined by content */
+    height: auto; 
+    min-height: 24px;
+    
+    margin: 0;
+    background-color: transparent;
+    border: 0 solid transparent;
+    border-radius: 10px;
+    color: white;
+    padding-inline-start: 10px;
+
+    /* Vital for the "look" */
+    resize: none;         /* Removes the drag handle */
+    overflow: hidden;     /* Hides the scrollbar */
+    font-family: inherit; /* Textareas don't always inherit font */
+    font-size: 1rem;
+    line-height: 1.4;
+    display: block;
+}
+
+/* Remove blue outline on click */
+.item textarea:focus {
+    outline: none;
+}
+
+.item textarea:hover {
+    background-color: rgba(255,255,255,0.1);
+}
+
+.title-input {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    width: 100%;
+    border-radius: 5px;
+    border: none;
+    font-size: 28px;
+    background-color: transparent;
+    color: #ffffff;
+}
+
+.checkbox {
+    background-color: transparent;
+    border: #333;
+}
+
+.checkbox i {
+    font-size: 24px;
+    transition: all .3s;
+}
+
+.fa-regular {
+    color: rgba(144, 238, 144, 0.33);
+    transition: all 0.3s;
+}
+
+.fa-regular:hover {
+    color: rgba(144,238,144,1);
+    transform: scale(115%);
+}
+
+.fa-solid {
+    color: rgba(144,238,144,1);
+}
