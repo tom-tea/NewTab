@@ -22,6 +22,27 @@ body {
     cursor: pointer;
 }
 
+.delete-button {
+    display: none;
+    border-radius: 50%;
+    background-color: #ff4d4d;
+    color: rgba(255, 255, 255, 0.5);
+    border: solid 0px;
+
+    width: 30px;
+    height: 30px;
+
+    position: absolute;
+    top: 6px;
+    right: 5px;
+}
+
+.to-do-list:hover .delete-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 #content-wrapper {
     width: 70%;
     

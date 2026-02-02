@@ -10,15 +10,34 @@ async function checkbox(button){
     remove(checkbox.parentElement.parentElement);
 }
 
+function add(){
+    document.getElementById("content-wrapper").innerHTML += `
+        <div class="to-do-list">
+            <input class="title-input" type="text" placeholder="Title...">
+            
+
+            <div class="item">
+                <button class="checkbox" onclick="checkbox(this);"><i class="fa-regular fa-circle-check"></i></button>
+                <textarea rows="1" placeholder="${funnyTasks[Math.round(Math.random()*funnyTasks.length-1)]}" oninput="autoResize(this)"></textarea>
+            </div>
+
+            <button class="delete-button" onclick="this.parentElement.remove(); savePageState();">
+                <i class="fas fa-trash"></i>
+            </button>
+        </div>
+
+    `;
+}
+
 function remove(item){
     const itemparent = item.parentElement;
     item.remove();
 
-    if(itemparent.children.length <= 1){
+    if(itemparent.children.length <= 2){
         itemparent.innerHTML += `<div class="item">
                 <button class="checkbox" onclick="checkbox(this);"><i class="fa-regular fa-circle-check"></i></button>
                 <textarea rows="1" placeholder="${funnyTasks[Math.round(Math.random()*funnyTasks.length-1)]}" oninput="autoResize(this)"></textarea>
-            </div>`
+            </div>`;
     }
 }
 
@@ -140,5 +159,53 @@ const funnyTasks = [
   "Use Force on the remote",
   "Invent Snack Day",
   "Shadowbox insecurities",
-  "Celebrate finishing list"
+  "Celebrate finishing list",
+  "Argue with a receipt",
+  "Befriend a rogue moth",
+  "Check for monsters",
+  "Draft a snail's will",
+  "Edit a cloud's resume",
+  "Fix a broken shadow",
+  "Greet every spoon",
+  "Help a grape escape",
+  "Insult a lemon",
+  "Judge a book's spine",
+  "Keep a secret from dog",
+  "Listen to the cheese",
+  "Measure a yawn",
+  "Negotiate with stairs",
+  "Outrun my problems",
+  "Pet a polite rock",
+  "Question the blender",
+  "Rename my left foot",
+  "Scold the Wi-Fi",
+  "Tax my imaginary gold",
+  "Unlock the air",
+  "Visit the dust bunnies",
+  "Warn the neighbors",
+  "X-ray a jellybean",
+  "Yell at a marshmallow",
+  "Zip a zipper slowly",
+  "Add glitter to salad",
+  "Buy a hat for a tree",
+  "Call a toll-free bird",
+  "Dance with a mop",
+  "Eavesdrop on plants",
+  "File my thumbprints",
+  "Ghost a telemarketer",
+  "Hum the color blue",
+  "Inhale a breadstick",
+  "Jump over a mood",
+  "Kidnap a gnome",
+  "Lick a frozen pole",
+  "Mime a heavy thought",
+  "Notice the wallpaper",
+  "Order a pizza for 2027",
+  "Paint a grape's nails",
+  "Quietly judge milk",
+  "Read a pasta box",
+  "Smell a math book",
+  "Tickle a cactus",
+  "Update the cat",
+  "Vacuum the yard"
 ];
