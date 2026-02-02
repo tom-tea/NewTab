@@ -185,3 +185,45 @@ section input {
 .link-container button {
     background-color: #333;
 }
+
+.transition {
+    position: absolute;
+    right:0;
+    left: 0;
+    top:0;
+    bottom: 0;
+    background-color: #0d0d0d;
+    z-index: 100;
+    transition: all .5s;
+}
+
+.activetransition{
+    left: 100vw;
+}
+
+#goto-todo {
+    position: absolute;
+
+    right: 24px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #1e1e1e;
+    background-color: #ffffff;
+    border-radius: 50%;
+    font-size: 200%;
+    padding: 0;
+    width: 24px;
+    height: 23px;
+    border: solid transparent 0;
+
+    transition: all 0.3s ease;
+}
+
+#goto-todo:hover {
+    
+    color: #00ff88;
+    background-color: white;
+    transform: translateX(5px) scale(120%);
+}

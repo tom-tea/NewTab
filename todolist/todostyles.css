@@ -143,3 +143,46 @@ body {
 .fa-solid {
     color: rgba(144,238,144,1);
 }
+
+.transition {
+    position: absolute;
+    right:100vw;
+    left: 0;
+    top:0;
+    bottom: 0;
+    background-color: #0d0d0d;
+    z-index: 100;
+    transition: all .5s;
+}
+
+.activetransition{
+    right: 0;
+}
+
+
+#goto-todo {
+    position: absolute;
+
+    left: 24px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #1e1e1e;
+    background-color: #ffffff;
+    border-radius: 50%;
+    font-size: 200%;
+    padding: 0;
+    width: 24px;
+    height: 23px;
+    border: solid transparent 0;
+
+    transition: all 0.3s ease;
+}
+
+#goto-todo:hover {
+    
+    color: #00ff88;
+    background-color: white;
+    transform: translateX(5px) scale(120%);
+}

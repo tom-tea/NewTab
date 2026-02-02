@@ -1,4 +1,21 @@
-// Das ist der Github Reset Punkt wenn das Implementieren von der TO-Do- Liste schief geht
+const queryString = window.location.search;
+
+// 2. Create an instance of URLSearchParams
+const urlParams = new URLSearchParams(queryString);
+
+// 3. Access specific values
+const testValue = urlParams.get('transition');
+
+test();
+async function test() {
+    if(testValue === 'true'){
+        document.getElementById("trans-button").classList.add("activetransition");
+    } else {
+        document.getElementById("trans-button").classList.add("activetransition");
+        document.getElementById("trans-button").classList.remove("transition");
+        
+    }    
+}
 
 
 // --- 1. GLOBALS & STATE ---
@@ -240,3 +257,21 @@ searchInput.addEventListener('input', () => {
         searchDiv.classList.remove('match-found');
     }
 });
+
+async function gototodo() {
+    document.getElementById("trans-button").classList.remove("activetransition");
+    document.getElementById("trans-button").classList.add("transition");
+        
+    await delay(500);
+
+    console.log("Waited");
+    if(!window.location.href.includes("html")){
+        window.open(window.location.href + "/todolist?transition=true", "_self");
+    } else {
+        window.open("file:///C:/Users/tomfr/Documents/GitHub/NewTab/todolist/index.html?transition=true", "_self");
+    }
+}
+
+function delay(time) {
+    return new Promise(resolve => setTimeout(resolve, time));
+}
