@@ -6,7 +6,7 @@ async function gototodo() {
 
     console.log("Waited");
     if(!window.location.href.includes("html")){
-        window.open(window.location.href - "/todolist?transition=true", "_self");
+        window.open(window.location.href.substring(0, window.location.href.length - "/todolist?transition=true".length) + "?transition=true", "_self");
     } else {
         window.open("file:///C:/Users/tomfr/Documents/GitHub/NewTab/index.html?transition=true", "_self");
     }
