@@ -266,7 +266,7 @@ async function gototodo() {
 
     console.log("Waited");
     if(!window.location.href.includes("html")){
-        window.open("https://tom-tea.github.io/NewTab/todolist/?transition=true");
+        window.open("https://tom-tea.github.io/NewTab/todolist/?transition=true", "_self");
     } else {
         window.open("file:///C:/Users/tomfr/Documents/GitHub/NewTab/todolist/index.html?transition=true", "_self");
     }
