@@ -266,7 +266,11 @@ async function gototodo() {
 
     console.log("Waited");
     if(!window.location.href.includes("html")){
-        window.open(window.location.href + "/todolist?transition=true", "_self");
+        if(window.location.href.includes("transistion=true")){
+            window.open(window.location.href.substring(0, window.location.href.length - "?transition=true".length) + "/todolist?transition=true", "_self");
+        } else {
+            window.open(window.location.href + "/todolist?transition=true", "_self");
+        }
     } else {
         window.open("file:///C:/Users/tomfr/Documents/GitHub/NewTab/todolist/index.html?transition=true", "_self");
     }
