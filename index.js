@@ -153,20 +153,42 @@ function applyEditMode() {
 function loadIcons() {
     document.querySelectorAll('section a').forEach(link => {
         const wrapper = link.querySelector('.icon-wrapper');
-        if (wrapper && wrapper.children.length > 0) return; 
+        if (!wrapper) return;
+        
+        // If an image already exists and loaded correctly, skip it
+        if (wrapper.querySelector('img') && wrapper.querySelector('img').complete) return; 
 
         try {
             const url = new URL(link.href);
             const domain = url.hostname;
             const img = document.createElement('img');
-            img.src = `https://unavatar.io/${domain}?fallback=https://www.google.com/s2/favicons?sz=64&domain=${domain}`;
+            
+            // --- 1. Custom Override for NotebookLM (Google's internal path) ---
+            if (domain.includes('notebooklm.google.com')) {
+                img.src = 'https://www.gstatic.com/lamda/images/favicon_v2_71fa195379bb6c483981a.png';
+            } 
+            // --- 2. Google S2 Service (High Reliability) ---
+            else {
+                // Using domain_url with the full href helps Google find specific subdomain icons
+                img.src = `https://www.google.com/s2/favicons?sz=64&domain_url=${encodeURIComponent(link.href)}`;
+            }
+
             img.onerror = () => {
-                img.style.display = 'none';
-                wrapper.innerHTML = '<i class="fas fa-link"></i>';
+                // Fallback 1: Try just the domain if the full URL failed
+                if (!img.dataset.retry) {
+                    img.dataset.retry = "true";
+                    img.src = `https://www.google.com/s2/favicons?sz=64&domain=${domain}`;
+                } else {
+                    // Fallback 2: Show FontAwesome if all Google attempts fail
+                    img.style.display = 'none';
+                    wrapper.innerHTML = '<i class="fas fa-link"></i>';
+                }
             };
+
+            wrapper.innerHTML = ''; // Clear previous content
             wrapper.appendChild(img);
         } catch(e) {
-            if (wrapper) wrapper.innerHTML = '<i class="fas fa-link"></i>';
+            wrapper.innerHTML = '<i class="fas fa-link"></i>';
         }
     });
 }
